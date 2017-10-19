@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head> 
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js " ></script>  
+		<title>input number validation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+		
+		</style>
+	</head>
+	
+		
+		<body ng-controller="MainCtrl">
+		<div class="page">
+		<header class="mainHeader">
+		<div class="logHolder">
+			<img class="logoImg" src="images/hm.png" />
+			<h1>Renew your tax credits</h1>
+		</div>
+			
+			
+  
+		</header>
+			
+			
+		
+			
+			
+			
+			
+			<div  class="container">
+			 
+			 <form novalidate name="paymentForm">
+				<section>
+					<fieldset>
+						<legend>Your details;</legend>
+						<p>Your national insurance number <a href=# >show me where to find this</a></p> 
+						 <input 
+						 type="text"
+						 name="niNum"			 
+						 ng-model="ccinfo.number" 
+						 class="form-control"
+						 data-ng-minlength="9"
+						 maxlength="9" 
+						 placeholder="Your NI" 
+						 required/>
+						 <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+							  <li ng-show="paymentForm.niNum.$error.minlength">Ni number must be 9 digits</li>
+							  <li ng-show="paymentForm.niNum.$error.pattern">Ni number must consist of only numbers</li>
+							  <li ng-show="paymentForm.niNum.$error.required">Ni number is required</li>
+						</ul>
+					</fieldset>
+				</section>
+				<section>
+					<fieldset>
+						<p>Your tax credits renewal number is the 15 digit number on the bottom right hand corner of your annual declaration. Enter it below.</p>
+						<legend>Your tax credit renewal number:</legend>
+						<input 
+						type="text" 
+						name="codeNum"
+						ng-model="val" 
+						numbers-only 
+						class="form-control"
+						data-ng-minlength="15"
+						maxlength="15" required
+						placeholder="Your tax credit number"
+						/>{{ccinfo.type}}
+						<ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+						  <li ng-show="paymentForm.codeNum.$error.minlength">Tax credit number must be 15 digits</li>
+						  <li ng-show="paymentForm.codeNum.$error.required">Tax credit number is required</li>
+						</ul>
+					</fieldset>
+					<button ng-click="paymentForm.submitAttempt=true;save(ccinfo)" type="submit">Next</button>
+				</section>
+				
+				
+			</form>
+  
+			</div>
+			</div>
+
+<script>
+var app = angular.module('app', []);
+angular.module('app').controller( 'MainCtrl', function($scope) {
+      
+      $scope.ccinfo = {type:undefined}
+      $scope.save = function(data){
+        if ($scope.paymentForm.$valid){
+          console.log(data) // valid data saving stuff here
+        }
+      }
+    })
+	
+app.directive('numbersOnly', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attr, ngModelCtrl) {
+			ngModelCtrl.$parsers.unshift(function(value){
+              scope.ccinfo.type =
+                (/^[0-15]/.test(value)) ? "good start..."
+                :(/^[a-zA-Z]/.test(value)) ? "bad start"
+                : undefined
+              ngModelCtrl.$setValidity('invalid',!!scope.ccinfo.type)
+              return value
+            })
+              function fromUser(text) {
+                if (text) {
+                    var transformedInput = text.replace(/[^0-9]/g, '');
+
+                    if (transformedInput !== text) {
+                        ngModelCtrl.$setViewValue(transformedInput);
+                        ngModelCtrl.$render();
+                    }
+                    return transformedInput;
+                }
+                return undefined;
+            }                    
+            ngModelCtrl.$parsers.push(fromUser);
+        }
+    };
+});
+ </script>
+	</body>
+</html>

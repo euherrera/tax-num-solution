@@ -1,0 +1,19 @@
+*{margin:0; padding:0; border:0; outline:0; }
+body{background:#f9f9f9; color:#222; font-size:14px; font-family:arial;}
+section, ul ,li{display:block;}
+li{color:red;}
+h3, p{margin-bottom:10px;}
+.page{width:90%; margin:0 auto; border-left:1px solid #4c4cff; border-right:1px solid #4c4cff; border-bottom:1px solid #4c4cff; }
+.mainHeader{height:auto; background:whitesmoke; margin-bottom: 30px;}
+.logHolder{border-top:8px solid #4c4cff; padding:30px;}
+.inline{display:inline-block;}
+input{display:block; height:30px; border:1px solid darkgrey; background:#e1e4e4;}
+.logoImg{width:10%;}
+section{padding:30px;}
+button{padding:5px; background:green; cursor:pointer;}
+legend{font-weight:bold;}
+fieldset{margin-bottom:10px;}
+input:valid{border:2px solid green;}
+@media all and (max-width:767px){
+h3, p{font-size:.7em;}
+}
