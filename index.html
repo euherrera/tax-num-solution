@@ -42,12 +42,13 @@
 						 ng-model="ccinfo.number" 
 						 class="form-control"
 						 data-ng-minlength="9"
+						 data-ng-pattern="/^[a-z]+[0-9]/"
 						 maxlength="9" 
 						 placeholder="Your NI" 
 						 required/>
 						 <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
 							  <li ng-show="paymentForm.niNum.$error.minlength">Ni number must be 9 digits</li>
-							  <li ng-show="paymentForm.niNum.$error.pattern">Ni number must consist of only numbers</li>
+							  <li ng-show="paymentForm.niNum.$error.pattern">Ni number must contain letters and numbers</li>
 							  <li ng-show="paymentForm.niNum.$error.required">Ni number is required</li>
 						</ul>
 					</fieldset>
